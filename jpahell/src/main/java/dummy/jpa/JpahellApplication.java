@@ -1,13 +1,8 @@
 package dummy.jpa;
 
-import java.text.DecimalFormat;
-import java.util.Random;
-
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
 
@@ -51,27 +46,27 @@ public class JpahellApplication extends Application {
     }
 
 
-    @Bean
-    public CommandLineRunner hello(ReleveRepo repo) {
-
-	Releve rel = new Releve();
-	rel.setType("Elec");
-	Random rand = new Random();
-	rel.setIndex(rand.nextInt(100000));
-	DecimalFormat df = new DecimalFormat("00");
-	rel.setDate("201511" + df.format(rand.nextInt(31)));
-	repo.save(rel);
-
-	return (args) -> {
-	    repo.findAll().forEach(
-		    r->
-		    System.err.println(String.format(
-			    "%s, %s, %s", r.getDate(), r.getType(), r.getIndex() 
-			    ))
-		    );
-	};
-
-    }
+    //    @Bean
+    //    public CommandLineRunner hello(ReleveRepo repo) {
+    //
+    //	Releve rel = new Releve();
+    //	rel.setType("Elec");
+    //	Random rand = new Random();
+    //	rel.setIndex(rand.nextInt(100000));
+    //	DecimalFormat df = new DecimalFormat("00");
+    //	rel.setDate("201511" + df.format(rand.nextInt(31)));
+    //	repo.save(rel);
+    //
+    //	return (args) -> {
+    //	    repo.findAll().forEach(
+    //		    r->
+    //		    System.err.println(String.format(
+    //			    "%s, %s, %s", r.getDate(), r.getType(), r.getIndex() 
+    //			    ))
+    //		    );
+    //	};
+    //
+    //    }
 
 
 
@@ -105,11 +100,11 @@ public class JpahellApplication extends Application {
 	indexCol.setCellValueFactory(
 		new PropertyValueFactory<Releve, Integer>("Index"));
 
-	
+
 	repo.findAll().forEach(r->data.add(r));	
 	table.setItems(data);
-	
-	
+
+
 	table.getColumns().addAll(typeCol, dateCol, indexCol);
 
 	final TextField addType = new TextField();
