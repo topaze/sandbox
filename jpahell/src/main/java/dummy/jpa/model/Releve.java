@@ -25,6 +25,15 @@ public class Releve {
     @Column(name = "index", nullable = false)
     private Integer index;
 
+    public Releve() {	
+    }
+    
+    public Releve(final String type,final String date,final Integer index) {
+	this.type = type;
+	this.date = date;
+	this.index = index;
+    }
+    
     public Long getId() {
         return id;
     }
