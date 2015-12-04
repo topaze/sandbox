@@ -1,5 +1,7 @@
 package dummy.jpa.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,8 +11,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "releves")
-public class Releve {
+public class Releve implements Serializable {
     
+    private static final long serialVersionUID = 4659865154869540977L;
+
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id", nullable = false)
