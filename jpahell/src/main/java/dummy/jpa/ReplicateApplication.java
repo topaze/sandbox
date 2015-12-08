@@ -27,17 +27,8 @@ public class ReplicateApplication  {
     @Bean
     public CommandLineRunner hello(ReleveRepo repo) {
 
-	//	Releve rel = new Releve();
-	//	rel.setType("Elec");
-	//	Random rand = new Random();
-	//	rel.setIndex(rand.nextInt(100000));
-	//	DecimalFormat df = new DecimalFormat("00");
-	//	rel.setDate("201511" + df.format(rand.nextInt(31)));
-	//	repo.save(rel);
-
-
-	ExecutorService executor = Executors.newCachedThreadPool();
-	for(int i=0;i<3;i++) {
+	ExecutorService executor = Executors.newFixedThreadPool(2);
+	for(int i=0;i<4;i++) {
 	    executor.execute(new Runnable() {
 
 		@Override
@@ -52,34 +43,35 @@ public class ReplicateApplication  {
 		}
 	    });
 	}
-	for(int i=0;i<2;i++) {
-	    executor.execute(new Runnable() {
-
-		@Override
-		public void run() {
-		    Releve rel = new Releve();
-		    rel.setType("Elec");
-		    Random rand = new Random();
-		    int j= rand.nextInt(100000);
-		    rel.setIndex(j);
-		    DecimalFormat df = new DecimalFormat("00");
-		    String dt = "201511" + df.format(rand.nextInt(31));
-		    rel.setDate(dt);
-		    repo.save(rel);
-		    repo.delete(rel);
-		}
-	    });
-	}	
+	//	for(int i=0;i<1;i++) {
+	//	    executor.execute(new Runnable() {
+	//
+	//		@Override
+	//		public void run() {
+	//		    Releve rel = new Releve();
+	//		    rel.setType("Elec");
+	//		    Random rand = new Random();
+	//		    int j= rand.nextInt(100000);
+	//		    rel.setIndex(j);
+	//		    DecimalFormat df = new DecimalFormat("00");
+	//		    String dt = "201511" + df.format(rand.nextInt(31));
+	//		    rel.setDate(dt);
+	//		    repo.save(rel);
+	//		    repo.delete(rel);
+	//		}
+	//	    });
+	//	}	
 	executor.shutdown();
 
 
 	return (args) -> {
-	    repo.findAll().forEach(
-		    r->
-		    System.err.println(String.format(
-			    "%s, %s, %s", r.getDate(), r.getType(), r.getIndex() 
-			    ))
-		    );
+	    //	    repo.findAll().forEach(
+	    //		    r->
+	    //		    System.err.println(String.format(
+	    //			    "%s, %s, %s", r.getDate(), r.getType(), r.getIndex() 
+	    //			    ))
+	    //		    );
+	    System.err.println(repo.findAll().spliterator().getExactSizeIfKnown());
 	};
 
     }

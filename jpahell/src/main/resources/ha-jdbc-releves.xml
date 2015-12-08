@@ -1,0 +1,25 @@
+<ha-jdbc xmlns="urn:ha-jdbc:cluster:3.0">
+	<sync id="diff">
+		<property name="fetchSize">1000</property>
+		<property name="maxBatchSize">100</property>
+	</sync>
+	<sync id="full">
+		<property name="fetchSize">1000</property>
+		<property name="maxBatchSize">100</property>
+	</sync>
+
+	<!-- transaction-mode="parallel" auto-activate-schedule="0 * * ? * *" failure-detect-schedule="0 
+		* * ? * *" meta-data-cache="none" -->
+
+	<cluster balancer="simple" dialect="postgresql" default-sync="full">
+		<database id="releves1" location="jdbc:postgresql://localhost:5432/releves1" weight="10">
+			<user>postgres</user>
+			<password>postgres</password>
+		</database>
+		<database id="releves2" location="jdbc:postgresql://localhost:5432/releves2" weight="10">
+            <user>postgres</user>
+            <password>postgres</password>
+        </database>
+
+	</cluster>
+</ha-jdbc>

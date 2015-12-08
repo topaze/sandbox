@@ -18,6 +18,13 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
+	<repositories>
+		<repository>
+			<id>jboss</id>
+			<url>https://repository.jboss.org/nexus/content/groups/public/</url>
+		</repository>
+	</repositories>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
@@ -34,6 +41,24 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.4-1206-jdbc4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.ha-jdbc</groupId>
+			<artifactId>ha-jdbc</artifactId>
+			<version>3.0.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>p6spy</groupId>
+			<artifactId>p6spy</artifactId>
+			<version>2.1.4</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
@@ -44,6 +69,12 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.6.3</version>
 		</dependency>
+
+		<!-- <dependency> <groupId>org.hibernate</groupId> <artifactId>hibernate-envers</artifactId> 
+			<version>4.3.11.Final</version> </dependency> -->
+
+		<!-- <dependency> <version>2.0.2</version> <groupId>com.googlecode</groupId> 
+			<artifactId>hibernate-audit</artifactId> </dependency> -->
 
 	</dependencies>
 
