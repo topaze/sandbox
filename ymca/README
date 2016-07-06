@@ -1,0 +1,32 @@
+##### CREATE CA PK & CRT
+openssl req -new -x509 -days 3650 -extensions v3_ca -keyout private/cakey.pem -out cacert.pem -config ../openssl.cnf
+
+##### KEYSTORE
+keytool -keystore test.jks -genkey -keyalg RSA -keysize 4096 -alias test
+
+##### CSR
+keytool -keystore test.jks -certreq -alias test -keyalg rsa -file test.csr
+
+##### CONFIGURE EXTENSIONS
+vi extfile.conf
+	keyUsage=digitalSignature 
+	extendedKeyUsage=codeSigning
+
+##### SIGN CSR
+openssl x509 -req -CA cacert.pem -CAkey private/cakey.pem -in test.csr -out test.cer -days 365 -CAcreateserial -extfile extfile.conf
+
+##### IMPORT CA CER
+keytool -import -keystore test.jks -file cacert.pem -alias ymca
+
+##### IMPORT TEST CER
+keytool -import -keystore test.jks -file test.cer -alias test
+
+
+-extensions keyUsage=digitalSignature extendedKeyUsage=codeSigning
+-extensions keyUsage
+
+keytool -keystore test.jks -genkey -keyalg RSA -keysize 4096 -alias test
+keytool -keystore test.jks -certreq -alias test -keyalg rsa -file test.csr
+openssl x509 -req -CA cacert.pem -CAkey private/cakey.pem -in test.csr -out test.cer -days 365 -CAcreateserial -extfile extfile.conf
+keytool -import -keystore test.jks -file cacert.pem -alias ymca
+keytool -import -keystore test.jks -file test.cer -alias test
